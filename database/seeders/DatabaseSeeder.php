@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
     {
         \App\Models\User::factory(10)->create();
 
-        $types = ['Schedules', 'Parents', 'Students'];
+        $types = ['Franchises', 'Schedules', 'Guardians', 'Students'];
 
         foreach ($types as $type) {
             ObjectType::firstOrCreate(['name' => $type]);
