@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Franchise extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['name', 'location'];
     public function guardians(): HasMany
     {
         return $this->hasMany(Guardian::class);

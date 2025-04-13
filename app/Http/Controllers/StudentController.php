@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Student;
 
 class StudentController extends Controller
 {
@@ -11,7 +12,7 @@ class StudentController extends Controller
      */
     public function index()
     {
-        //
+        return Student::all();
     }
 
     /**
@@ -19,7 +20,14 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:students,email,',
+            'age' => 'required|integer|min:1',
+            'guardian_id' => 'required|exists:guardians,id',
+        ]);
+
+        return Student::create($validated);
     }
 
     /**
@@ -27,7 +35,7 @@ class StudentController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return Student::findOrFail($id);
     }
 
     /**
@@ -35,7 +43,15 @@ class StudentController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $student = Student::findOrFail($id);
+        $validated = $request->validate([
+            'name' => 'sometimes|required|string|max:255',
+            'email' => 'sometimes|required|email|unique:students,email,' . $id,
+            'age' => 'sometimes|required|integer|min:1',
+            'guardian_id' => 'sometimes|required|exists:guardians,id',
+        ]);
+        $student->update($validated);
+        return response()->json($student);
     }
 
     /**
@@ -43,6 +59,6 @@ class StudentController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        return Student::destroy($id);
     }
 }

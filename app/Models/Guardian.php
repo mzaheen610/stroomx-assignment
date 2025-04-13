@@ -11,6 +11,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Guardian extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['name', 'email', 'phone', 'relationship', 'franchise_id'];
+    
     public function student(): HasOne
     {
         return $this->hasOne(Student::class);

@@ -10,6 +10,7 @@ class Schedule extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['title', 'start_time', 'end_time', 'franchise_id'];
     public function franchise(): BelongsTo
     {
         return $this->belongsTo(Franchise::class);
