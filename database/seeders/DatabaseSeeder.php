@@ -20,5 +20,11 @@ class DatabaseSeeder extends Seeder
         foreach ($types as $type) {
             ObjectType::firstOrCreate(['name' => $type]);
         }
+        $this->call([
+            FranchiseSeeder::class,
+            GuardianSeeder::class,
+            StudentSeeder::class,
+            ScheduleSeeder::class,
+        ]);
     }
 }
